@@ -10,10 +10,10 @@ Fooderium - сайт с красивым и гибким интерфейсом,
   - [x] Set up backend email
   - [x] Store all secrets in .env files
   - [x] Clean up project hierarchy
-- [ ] **Create website layout using AI/Manually (Figma)**
+- [x] **Create website layout using AI/Manually (Figma)**
   - [x] Create palette for Day/Night
   - [x] Use a framework (React, Vue, Next)
-  - [ ] Integrate fonts and icons
+  - [x] Integrate fonts and icons
   - [x] Understand JS, buttons, and all that
   - [ ] Make it responsive for devices
 - [ ] **Create own API and understand REST, Django Rest Framework**
