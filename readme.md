@@ -16,7 +16,8 @@ Fooderium - сайт с красивым и гибким интерфейсом,
   - [x] Integrate fonts and icons
   - [x] Understand JS, buttons, and all that
   - [ ] Make it responsive for devices
-- [ ] **Create own API and understand REST, Django Rest Framework**
+- [ ] **Create own API** 
+- [x] **Understand REST API, Django Rest Framework**
 - [ ] **Create user profile application**
 - [ ] **Create recipes apllication**.
   - [ ] Create a model about recipe in django.
