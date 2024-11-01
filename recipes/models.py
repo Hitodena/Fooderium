@@ -2,7 +2,6 @@ from django.contrib.auth.models import User
 from django.db import models
 from taggit.managers import TaggableManager
 
-from notifications.models import Comment
 from products.models import Product
 
 
@@ -17,15 +16,14 @@ class Recipe(models.Model):
     fats = models.PositiveIntegerField()
     carbs = models.PositiveIntegerField()
     spiciness = models.IntegerField(blank=True, null=True)
-    difficulty = models.CharField(max_length=50, blank=True)
+    difficulty = models.IntegerField(blank=True, null=True)
     total_time = models.DurationField()
-    kitchen_time = models.DurationField(blank=True, null=True)
+    kitchen_time = models.DurationField(blank=True)
     rating = models.DecimalField(max_digits=3, decimal_places=2, blank=True, null=True)
-    favorites_count = models.PositiveIntegerField(default=0, blank=True)
+    favorites_count = models.PositiveIntegerField(default=0, blank=True, null=True)
     tags = TaggableManager()
     # Many-to-many fields
     products = models.ManyToManyField(Product, blank=True)
-    comments = models.ManyToManyField(Comment, blank=True)
 
 
 class RecipeStep(models.Model):
