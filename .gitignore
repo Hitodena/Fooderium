@@ -3,3 +3,4 @@ __pycache__
 .pg_pass
 .pg_service.conf
 .env
+migrations
