@@ -6,7 +6,7 @@ class Product(models.Model):
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField(blank=True, null=True)
     image = models.ImageField(upload_to="product-images/", blank=True)
-    calories = models.PositiveIntegerField()
+    calories = models.DecimalField(decimal_places=2, max_digits=5)
     proteins = models.DecimalField(decimal_places=2, max_digits=5)
     fats = models.DecimalField(decimal_places=2, max_digits=5)
     carbs = models.DecimalField(decimal_places=2, max_digits=5)
