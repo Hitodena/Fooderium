@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from taggit.serializers import TaggitSerializer, TagListSerializerField
 
 from products.models import Product
 from recipes.models import Rating, Recipe, RecipeStep
@@ -22,11 +23,12 @@ class RatingSerializer(serializers.ModelSerializer):
         fields = ["user", "score"]
 
 
-class RecipeSerializer(serializers.ModelSerializer):
+class RecipeSerializer(TaggitSerializer, serializers.ModelSerializer):
     steps = RecipeStepSerializer(many=True, required=True)
     products = ProductSerializer(many=True, required=True)
     average_rating = serializers.FloatField(source="get_average_rating", read_only=True)
     favorited_by_count = serializers.IntegerField(source="favorited_by.count", read_only=True)
+    tags = TagListSerializerField()
 
     class Meta:
         model = Recipe

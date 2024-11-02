@@ -1,9 +1,13 @@
 from rest_framework import serializers
+from taggit.serializers import TaggitSerializer, TagListSerializerField
 
 from products.models import Product
 
 
-class ProductSerializer(serializers.ModelSerializer):
+class ProductSerializer(TaggitSerializer, serializers.ModelSerializer):
+
+    tags = TagListSerializerField()
+
     class Meta:
         model = Product
         fields = [
