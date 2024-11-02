@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models import Avg
 from taggit.managers import TaggableManager
 
 from products.models import Product
@@ -19,11 +20,26 @@ class Recipe(models.Model):
     difficulty = models.PositiveIntegerField(blank=True, null=True)
     total_time = models.DurationField()
     kitchen_time = models.DurationField(blank=True)
-    rating = models.DecimalField(max_digits=3, decimal_places=2, blank=True, null=True)
+    rating = models.PositiveSmallIntegerField(
+        choices=[(i, str(i)) for i in range(1, 6)], blank=True, null=True
+    )
     favorites_count = models.PositiveIntegerField(default=0, blank=True, null=True)
     tags = TaggableManager()
     # Many-to-many fields
     products = models.ManyToManyField(Product, blank=True)
+
+    def get_average_rating(self):
+        average_rating = self.ratings.aggregate(Avg("score"))["score__avg"]  # Access by rel.name
+        return average_rating if average_rating is not None else 0  # Return 0 if rating is empty
+
+
+class Rating(models.Model):
+    recipe = models.ForeignKey(Recipe, related_name="ratings", on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    score = models.PositiveSmallIntegerField(choices=[(i, str(i)) for i in range(1, 6)])
+
+    class Meta:
+        unique_together = ("recipe", "user")
 
 
 class RecipeStep(models.Model):
