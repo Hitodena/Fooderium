@@ -32,6 +32,9 @@ class Recipe(models.Model):
         average_rating = self.ratings.aggregate(Avg("score"))["score__avg"]  # Access by rel.name
         return average_rating if average_rating is not None else 0  # Return 0 if rating is empty
 
+    def __str__(self) -> str:
+        return self.title
+
 
 class Rating(models.Model):
     recipe = models.ForeignKey(Recipe, related_name="ratings", on_delete=models.CASCADE)
@@ -40,6 +43,9 @@ class Rating(models.Model):
 
     class Meta:
         unique_together = ("recipe", "user")
+
+    def __str__(self) -> str:
+        return f"Rating by {self.user.username} for {self.recipe.title} is {self.score}"
 
 
 class RecipeStep(models.Model):
@@ -50,3 +56,6 @@ class RecipeStep(models.Model):
 
     class Meta:
         ordering = ["step_number"]
+
+    def __str__(self) -> str:
+        return f"Step {self.step_number} of {self.recipe.title}"

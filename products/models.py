@@ -3,7 +3,7 @@ from taggit.managers import TaggableManager
 
 
 class Product(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     description = models.TextField(blank=True, null=True)
     image = models.ImageField(upload_to="product-images/", blank=True)
     calories = models.PositiveIntegerField()
@@ -14,3 +14,6 @@ class Product(models.Model):
     benefits = models.TextField(blank=True, null=True)
     harms = models.TextField(blank=True, null=True)
     tags = TaggableManager()
+
+    def __str__(self) -> str:
+        return self.name

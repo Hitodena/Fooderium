@@ -10,3 +10,6 @@ class UserProfile(models.Model):
     name = models.CharField(max_length=20, blank=True, null=True)
     profile_image = models.ImageField(upload_to="profile-images/", blank=True)
     favorite_recipes = models.ManyToManyField(Recipe, blank=True, related_name="favorited_by")
+
+    def __str__(self) -> str:
+        return self.nickname
