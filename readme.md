@@ -12,18 +12,18 @@ Fooderium - сайт с красивым и гибким интерфейсом,
   - [x] Clean up project hierarchy
 - [x] **Create website layout using AI/Manually (Figma)**
   - [x] Create palette for Day/Night
-  - [x] Use a framework (React, Vue, Next)
+  - [ ] Use a framework (React, Vue, Next)
   - [x] Integrate fonts and icons
   - [x] Understand JS, buttons, and all that
   - [ ] Make it responsive for devices
-- [ ] **Create own API**
+- [x] **Create own API**
 - [x] **Understand REST API, Django Rest Framework**
 - [ ] **Create user profile application**
-- [ ] **Create recipes apllication**.
+- [x] **Create recipes apllication**.
   - [x] Create a model about recipe in django.
   - [x] Create tags, nested tags and connect it.
-  - [ ] Provide all needed data via API.
-  - [ ] Search via name of recipe and tag.
+  - [x] Provide all needed data via API.
+  - [x] Search via name of recipe and tag.
   - [x] Connect a author of recipe with recipe.
 - [ ] **Create articles application**
 - [ ] **Create comments and notifications application**
