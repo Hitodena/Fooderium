@@ -16,8 +16,12 @@ class Recipe(models.Model):
     proteins = models.DecimalField(decimal_places=2, max_digits=5)
     fats = models.DecimalField(decimal_places=2, max_digits=5)
     carbs = models.DecimalField(decimal_places=2, max_digits=5)
-    spiciness = models.PositiveIntegerField(blank=True, null=True, default=0)
-    difficulty = models.PositiveIntegerField(blank=True, null=True, default=0)
+    spiciness = models.PositiveSmallIntegerField(
+        choices=[(i, str(i)) for i in range(1, 6)], blank=True, null=True
+    )
+    difficulty = models.PositiveSmallIntegerField(
+        choices=[(i, str(i)) for i in range(1, 6)], blank=True, null=True
+    )
     hours = models.PositiveIntegerField(blank=True, null=True, default=0)
     minutes = models.PositiveIntegerField(blank=True, null=True, default=0)
     rating = models.PositiveSmallIntegerField(
