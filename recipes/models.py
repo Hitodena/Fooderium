@@ -62,4 +62,4 @@ class RecipeStep(models.Model):
         ordering = ["step_number"]
 
     def __str__(self) -> str:
-        return f"Step {self.step_number} of {self.recipe.title}"
+        return f"Step {self.step_number} of {self.recipe.title} with recipe id {self.recipe.id}"
