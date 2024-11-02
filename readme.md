@@ -40,3 +40,7 @@ Fooderium - сайт с красивым и гибким интерфейсом,
   - [ ] Connect Object Storage for media files, then for caching CDN
   - [ ] Create logs, analyze them using Kibana + ElasticSearch
   - [ ] Create metrics using Prometheus and Grafana
+
+## Troubles
+
+Relations with recipes, because they dont unique.
