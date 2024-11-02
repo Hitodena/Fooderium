@@ -1,6 +1,6 @@
 from config.env import env
 
-from .base import *
+from config.django.base import *
 
 DEBUG = env.bool("DJANGO_DEBUG", default=False)  # type: ignore
 
