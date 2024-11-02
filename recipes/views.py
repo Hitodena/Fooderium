@@ -2,6 +2,7 @@ from django.http import Http404
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.pagination import PageNumberPagination
 
 from recipes.models import Recipe
 from recipes.serializers import RecipeListSerializer, RecipeSerializer
@@ -10,10 +11,14 @@ from recipes.serializers import RecipeListSerializer, RecipeSerializer
 class RecipesList(APIView):
     """ """
 
+    pagination_class = PageNumberPagination
+
     def get(self, request):
         recipes = Recipe.objects.all()
-        serializer = RecipeListSerializer(recipes, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)  # Good
+        paginator = self.pagination_class()
+        paginated_recipes = paginator.paginate_queryset(recipes, request)
+        serializer = RecipeListSerializer(paginated_recipes, many=True)
+        return paginator.get_paginated_response(serializer.data)  # Good
 
     def post(self, request, format=None):
         serializer = RecipeSerializer(data=request.data)
@@ -34,7 +39,7 @@ class RecipeDetail(APIView):
 
     def get(self, request, pk):
         recipe = self.get_object(pk)
-        serializer = RecipeSerializer(recipe)
+        serializer = RecipeSerializer(recipe, context={"request": request})
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def put(self, request, pk):

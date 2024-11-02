@@ -10,7 +10,7 @@ class Recipe(models.Model):
     title = models.CharField(max_length=255)
     published_date = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    photo = models.ImageField(upload_to="recipes/", blank=True)
+    image = models.ImageField(upload_to="recipes-images/", blank=True)
     description = models.TextField()
     calories = models.DecimalField(decimal_places=2, max_digits=5)
     proteins = models.DecimalField(decimal_places=2, max_digits=5)
@@ -24,10 +24,8 @@ class Recipe(models.Model):
     )
     hours = models.PositiveIntegerField(blank=True, null=True, default=0)
     minutes = models.PositiveIntegerField(blank=True, null=True, default=0)
-    rating = models.PositiveSmallIntegerField(
-        choices=[(i, str(i)) for i in range(1, 6)], blank=True, null=True
-    )
     favorites_count = models.PositiveIntegerField(default=0, blank=True, null=True)
+    servings = models.PositiveSmallIntegerField(default=1)
     tags = TaggableManager()
     # Many-to-many fields
     products = models.ManyToManyField(Product, blank=True)
@@ -49,7 +47,7 @@ class Rating(models.Model):
         unique_together = ("recipe", "user")
 
     def __str__(self) -> str:
-        return f"Rating by {self.user.username} for {self.recipe.title} is {self.score}"
+        return f"Rating by {self.user.username} for {self.recipe.title} with id {self.recipe.id} is {self.score}"
 
 
 class RecipeStep(models.Model):
@@ -63,3 +61,12 @@ class RecipeStep(models.Model):
 
     def __str__(self) -> str:
         return f"Step {self.step_number} of {self.recipe.title} with recipe id {self.recipe.id}"
+
+
+class RecipeProduct(models.Model):
+    recipe = models.ForeignKey(Recipe, related_name="recipe_products", on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveSmallIntegerField()
+
+    def __str__(self) -> str:
+        return f"{self.product.name} for {self.recipe.title} with id {self.recipe.id}"
