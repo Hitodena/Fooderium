@@ -4,3 +4,5 @@ __pycache__
 .pg_service.conf
 .env
 migrations
+mediafiles
+staticfiles
