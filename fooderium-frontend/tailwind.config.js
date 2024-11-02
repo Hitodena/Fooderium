@@ -2,19 +2,42 @@
 module.exports = {
   content: ['./src/**/*.{vue,js,ts,jsx,tsx}'],
   theme: {
-    extend: {},
+    screens: {
+      sm: '480px',
+      md: '768px',
+      lg: '976px',
+      xl: '1440px',
+    },
     colors: {
-      'main-brown': '#1F1312',
-      'accent-yellow': '#E6A313',
-      'accent-orange': '#DB500F',
-      'accent-red': '#D3180D',
-      'bgbd-gray': '#9BA5A3',
-      'main-brown-footer': '#5A322A',
-      'main-brown-darker': '#190F0E',
-      'bd-pink': 'CAA99D',
+      dark: {
+        100: '#000000',
+      },
+      white: {
+        100: '#FFFFFF',
+      },
+      brown: {
+        100: '#5A322A',
+        200: '#1F1312',
+        300: '#190F0E',
+      },
+      yellow: {
+        100: '#E6A313',
+      },
+      orange: {
+        100: '#DB500F',
+      },
+      red: {
+        100: '#D3180D',
+      },
+      gray: {
+        100: '#9BA5A3',
+      },
+      pink: {
+        100: '#CAA99D',
+      },
     },
     fontFamily: {
-      sans: ['Montserrat', 'sans-serif'],
+      montserrat: ['Montserrat'],
     },
   },
   plugins: [],
