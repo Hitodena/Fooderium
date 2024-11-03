@@ -37,7 +37,7 @@ onMounted(async () => {
   >
     <h1 class="text-3xl font-bold mb-4">{{ recipe.title }}</h1>
     <img
-      :src="recipe.image_url"
+      :src="recipe.image"
       alt="Рецепт"
       class="w-full h-auto max-w-xs mx-auto"
     />
