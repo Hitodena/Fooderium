@@ -66,7 +66,6 @@ onMounted(async () => {
     <RecipeSteps v-if="recipe.steps.length" :steps="recipe.steps" />
 
     <div class="mt-4">
-      <h2 class="text-xl font-semibold mb-2">Комментарии</h2>
       <CommentsBlock v-if="comments.length" :comments="comments" />
       <p v-else class="text-gray-500">Пока нет комментариев.</p>
     </div>
