@@ -59,6 +59,7 @@ class RecipeListSerializer(serializers.ModelSerializer):
 
 
 class RecipeSerializer(TaggitSerializer, serializers.ModelSerializer):
+    is_favorited = serializers.SerializerMethodField()
     image_url = serializers.SerializerMethodField()
     steps = RecipeStepSerializer(many=True, required=True)
     recipe_products = RecipeProductSerializer(many=True, required=True)

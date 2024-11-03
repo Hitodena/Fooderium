@@ -20,7 +20,7 @@ class RecipesList(APIView):
         serializer = RecipeListSerializer(paginated_recipes, many=True)
         return paginator.get_paginated_response(serializer.data)  # Good
 
-    def post(self, request, format=None):
+    def post(self, request):
         serializer = RecipeSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()

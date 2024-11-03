@@ -1,4 +1,3 @@
-from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import Avg
 from taggit.managers import TaggableManager
@@ -9,7 +8,9 @@ from products.models import Product
 class Recipe(models.Model):
     title = models.CharField(max_length=255)
     published_date = models.DateTimeField(auto_now_add=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(
+        "users.UserProfile", on_delete=models.CASCADE, related_name="created_by"
+    )
     image = models.ImageField(upload_to="recipes-images/", blank=True)
     description = models.TextField()
     calories = models.DecimalField(decimal_places=2, max_digits=5)
@@ -40,14 +41,14 @@ class Recipe(models.Model):
 
 class Rating(models.Model):
     recipe = models.ForeignKey(Recipe, related_name="ratings", on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey("users.UserProfile", on_delete=models.CASCADE)
     score = models.PositiveSmallIntegerField(choices=[(i, str(i)) for i in range(1, 6)])
 
     class Meta:
         unique_together = ("recipe", "user")
 
     def __str__(self) -> str:
-        return f"Rating by {self.user.username} for {self.recipe.title} with id {self.recipe.id} is {self.score}"
+        return f"Rating by {self.user.nickname} for {self.recipe.title} with id {self.recipe.id} is {self.score}"
 
 
 class RecipeStep(models.Model):
