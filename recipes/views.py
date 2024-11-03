@@ -1,15 +1,14 @@
 from django.http import Http404
 from rest_framework import status
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.pagination import PageNumberPagination
 
 from recipes.models import Recipe
 from recipes.serializers import RecipeListSerializer, RecipeSerializer
 
 
 class RecipesList(APIView):
-    """ """
 
     pagination_class = PageNumberPagination
 
@@ -29,7 +28,6 @@ class RecipesList(APIView):
 
 
 class RecipeDetail(APIView):
-    """"""
 
     def get_object(self, pk):
         try:
