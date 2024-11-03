@@ -1,3 +1,14 @@
+<script setup>
+import { defineProps } from 'vue'
+
+const props = defineProps({
+  steps: {
+    type: Array,
+    required: true,
+  },
+})
+</script>
+
 <template>
   <div class="mb-4">
     <h2 class="text-xl font-semibold">Шаги</h2>
@@ -12,14 +23,3 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import { defineProps } from 'vue'
-
-const props = defineProps({
-  steps: {
-    type: Array,
-    required: true,
-  },
-})
-</script>

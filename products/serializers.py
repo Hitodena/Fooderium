@@ -1,4 +1,5 @@
 from email.mime import image
+
 from rest_framework import serializers
 from taggit.serializers import TaggitSerializer, TagListSerializerField
 
@@ -6,24 +7,17 @@ from products.models import Product
 
 
 class ProductListSerializer(serializers.ModelSerializer):
-    image_url = serializers.SerializerMethodField()
 
     class Meta:
         model = Product
         fields = [
             "id",
             "name",
-            "image_url",
+            "image",
         ]
-
-    def get_image_url(self, obj):
-        if obj.image:
-            return obj.image.url
-        return None
 
 
 class ProductDetailSerializer(TaggitSerializer, serializers.ModelSerializer):
-    image_url = serializers.SerializerMethodField()
     tags = TagListSerializerField()
 
     class Meta:
@@ -32,7 +26,7 @@ class ProductDetailSerializer(TaggitSerializer, serializers.ModelSerializer):
             "id",
             "name",
             "description",
-            "image_url",
+            "image",
             "calories",
             "proteins",
             "fats",
@@ -42,8 +36,3 @@ class ProductDetailSerializer(TaggitSerializer, serializers.ModelSerializer):
             "harms",
             "tags",
         ]
-
-    def get_image_url(self, obj):
-        if obj.image:
-            return obj.image.url
-        return None

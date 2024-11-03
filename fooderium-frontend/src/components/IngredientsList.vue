@@ -1,3 +1,15 @@
+<script setup>
+import { defineProps } from 'vue'
+import RecipeProduct from './RecipeProduct.vue'
+
+const props = defineProps({
+  products: {
+    type: Array,
+    required: true,
+  },
+})
+</script>
+
 <template>
   <div class="mb-4">
     <h2 class="text-xl font-semibold">Ингредиенты</h2>
@@ -10,15 +22,3 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import { defineProps } from 'vue'
-import RecipeProduct from './RecipeProduct.vue';
-
-const props = defineProps({
-  products: {
-    type: Array,
-    required: true,
-  },
-})
-</script>

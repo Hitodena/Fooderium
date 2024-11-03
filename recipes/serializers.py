@@ -7,6 +7,7 @@ from users.models import UserProfile
 
 
 class ProductSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Product
         fields = ["id", "name", "image"]
@@ -22,16 +23,10 @@ class RecipeProductSerializer(serializers.ModelSerializer):
 
 
 class RecipeStepSerializer(serializers.ModelSerializer):
-    image_url = serializers.SerializerMethodField()
 
     class Meta:
         model = RecipeStep
-        fields = ["step_number", "instruction", "image_url"]
-
-    def get_image_url(self, obj):
-        if obj.image:
-            return obj.image.url
-        return None
+        fields = ["step_number", "instruction", "image"]
 
 
 class RatingSerializer(serializers.ModelSerializer):
@@ -60,7 +55,6 @@ class RecipeListSerializer(serializers.ModelSerializer):
 
 class RecipeSerializer(TaggitSerializer, serializers.ModelSerializer):
     is_favorited = serializers.SerializerMethodField()
-    image_url = serializers.SerializerMethodField()
     steps = RecipeStepSerializer(many=True, required=True)
     recipe_products = RecipeProductSerializer(many=True, required=True)
     average_rating = serializers.FloatField(source="get_average_rating", read_only=True)
@@ -77,7 +71,7 @@ class RecipeSerializer(TaggitSerializer, serializers.ModelSerializer):
             "title",
             "published_date",
             "author",
-            "image_url",
+            "image",
             "description",
             "calories",
             "proteins",
@@ -97,11 +91,6 @@ class RecipeSerializer(TaggitSerializer, serializers.ModelSerializer):
             "servings",
             "target_servings",
         ]
-
-    def get_image_url(self, obj):
-        if obj.image:
-            return obj.image.url
-        return None
 
     def get_is_favorited(self, obj):
         request = self.context.get("request")

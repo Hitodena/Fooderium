@@ -1,3 +1,14 @@
+<script setup>
+import { defineProps } from 'vue'
+
+const props = defineProps({
+  recipe: {
+    type: Object,
+    required: true,
+  },
+})
+</script>
+
 <template>
   <div class="mb-4">
     <h1 class="text-2xl font-bold">{{ recipe.title }}</h1>
@@ -18,14 +29,3 @@
     </ul>
   </div>
 </template>
-
-<script setup>
-import { defineProps } from 'vue'
-
-const props = defineProps({
-  recipe: {
-    type: Object,
-    required: true,
-  },
-})
-</script>

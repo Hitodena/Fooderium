@@ -1,41 +1,75 @@
-<template>
-  <div class="p-4">
-    <InfoAbout :recipe="recipe" />
-    <IngredientsList :products="recipe.recipe_products" />
-    <RecipeSteps :steps="recipe.steps" />
-    <CommentsBlock :comments="comments" />
-  </div>
-</template>
-
 <script setup>
-import { onMounted, ref } from 'vue'
-import { useRoute } from 'vue-router'
 import CommentsBlock from '@/components/CommentsBlock.vue'
-import InfoAbout from '@/components/InfoAbout.vue'
 import IngredientsList from '@/components/IngredientsList.vue'
 import RecipeSteps from '@/components/RecipeSteps.vue'
+import axios from 'axios'
+import { onMounted, ref } from 'vue'
 
-const route = useRoute()
+const props = defineProps(['id'])
+
 const recipe = ref({})
 const comments = ref([])
 
 onMounted(async () => {
-  await fetchRecipe()
-  await fetchComments()
+  try {
+    console.log('Загрузка данных о рецепте с id:', props.id)
+    const recipeResponse = await axios.get(
+      `http://localhost:8000/api/recipes/${props.id}/`,
+    )
+    recipe.value = recipeResponse.data
+    console.log('Данные о рецепте:', recipe.value)
+
+    const commentsResponse = await axios.get(
+      `http://localhost:8000/api/comments/?recipe=${props.id}`,
+    )
+    comments.value = commentsResponse.data.results || []
+    console.log('Комментарии:', comments.value)
+  } catch (error) {
+    console.error('Ошибка при загрузке данных:', error)
+  }
 })
-
-async function fetchRecipe() {
-  const response = await fetch(
-    `http://localhost:8000/api/recipes/${route.params.id}`,
-  )
-  recipe.value = await response.json()
-}
-
-async function fetchComments() {
-  const response = await fetch(`http://localhost:8000/api/comments/`)
-  const data = await response.json()
-  comments.value = data.results.filter(
-    comment => comment.recipe === recipe.value.id,
-  )
-}
 </script>
+
+<template>
+  <div
+    v-if="recipe.title"
+    class="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow-md"
+  >
+    <h1 class="text-3xl font-bold mb-4">{{ recipe.title }}</h1>
+    <img
+      :src="recipe.image_url"
+      alt="Рецепт"
+      class="w-full h-auto max-w-xs mx-auto"
+    />
+    <p class="text-gray-700 mb-4">{{ recipe.description }}</p>
+
+    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+      <h2 class="text-xl font-semibold mb-2">Пищевая ценность</h2>
+      <p>
+        Калории: <span class="font-medium">{{ recipe.calories }}</span>
+      </p>
+      <p>
+        Белки: <span class="font-medium">{{ recipe.proteins }}</span>
+      </p>
+      <p>
+        Жиры: <span class="font-medium">{{ recipe.fats }}</span>
+      </p>
+      <p>
+        Углеводы: <span class="font-medium">{{ recipe.carbs }}</span>
+      </p>
+    </div>
+
+    <IngredientsList
+      v-if="recipe.recipe_products.length"
+      :products="recipe.recipe_products"
+    />
+    <RecipeSteps v-if="recipe.steps.length" :steps="recipe.steps" />
+
+    <div class="mt-4">
+      <h2 class="text-xl font-semibold mb-2">Комментарии</h2>
+      <CommentsBlock v-if="comments.length" :comments="comments" />
+      <p v-else class="text-gray-500">Пока нет комментариев.</p>
+    </div>
+  </div>
+  <div v-else class="text-center">Загрузка...</div>
+</template>
