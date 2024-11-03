@@ -20,6 +20,6 @@ const props = defineProps({
       alt="Product Image"
       class="w-10 h-10 object-cover"
     />
-    <span class="font-medium">{{ product.name }} ({{ quantity }})</span>
+    <span class="font-medium">{{ product.name }} {{ quantity }}г.</span>
   </div>
 </template>

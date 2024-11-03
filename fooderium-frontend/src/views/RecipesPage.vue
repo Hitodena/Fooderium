@@ -44,18 +44,18 @@ onMounted(async () => {
     <p class="text-gray-700 mb-4">{{ recipe.description }}</p>
 
     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-      <h2 class="text-xl font-semibold mb-2">Пищевая ценность</h2>
+      <h2 class="text-xl font-semibold mb-2">Пищевая ценность на 100 грамм.</h2>
       <p>
-        Калории: <span class="font-medium">{{ recipe.calories }}</span>
+        Калории: <span class="font-medium">{{ recipe.calories }}г.</span>
       </p>
       <p>
-        Белки: <span class="font-medium">{{ recipe.proteins }}</span>
+        Белки: <span class="font-medium">{{ recipe.proteins }}г.</span>
       </p>
       <p>
-        Жиры: <span class="font-medium">{{ recipe.fats }}</span>
+        Жиры: <span class="font-medium">{{ recipe.fats }}г.</span>
       </p>
       <p>
-        Углеводы: <span class="font-medium">{{ recipe.carbs }}</span>
+        Углеводы: <span class="font-medium">{{ recipe.carbs }}г.</span>
       </p>
     </div>
 
