@@ -1,9 +1,23 @@
+import RecipesList from '@/views/RecipesList.vue'
+import RecipesPage from '@/views/RecipesPage.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
-const routes = []
+const routes = [
+  {
+    path: '/',
+    name: 'RecipesList',
+    component: RecipesList,
+  },
+  {
+    path: '/recipes/:id',
+    name: 'RecipesPage',
+    component: RecipesPage,
+    props: true,
+  },
+]
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(),
   routes,
 })
 
